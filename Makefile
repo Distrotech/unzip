@@ -121,9 +121,9 @@ INSTALL_PROGRAM = $(INSTALL)
 INSTALL_D = mkdir -p
 # on some systems, manext=l and MANDIR=/usr/man/man$(manext) may be appropriate
 manext = 1
-prefix = /usr/local
+prefix = /usr
 BINDIR = $(prefix)/bin#			where to install executables
-MANDIR = $(prefix)/man/man$(manext)#	where to install man pages
+MANDIR = $(prefix)/share/man/man$(manext)#	where to install man pages
 INSTALLEDBIN = $(BINDIR)/funzip$E $(BINDIR)/unzip$E $(BINDIR)/unzipsfx$E \
 	$(BINDIR)/zipgrep$E $(BINDIR)/zipinfo$E
 INSTALLEDMAN = $(MANDIR)/funzip.$(manext) $(MANDIR)/unzip.$(manext) \
@@ -267,7 +267,7 @@ zipinfo.txt:	man/zipinfo.1
 	nroff -Tascii -man man/zipinfo.1 | col -bx | uniq | expand > $@
 
 
-all:		generic_msg generic
+all:		generic
 unzips:		$(UNZIPS)
 objs:		$(OBJS)
 objsdll:	$(OBJSDLL)
@@ -448,19 +448,19 @@ svr4package:	unzips
 	@echo " "
 
 install:	$(MANS)
-	-$(INSTALL_D) $(BINDIR)
-	$(INSTALL_PROGRAM) $(UNZIPS) $(BINDIR)
-	$(INSTALL) unix/zipgrep $(BINDIR)
-	$(RM) $(BINDIR)/zipinfo$E
-	$(LN) $(BINDIR)/unzip$E $(BINDIR)/zipinfo$E
-	-$(INSTALL_D) $(MANDIR)
-	$(INSTALL) man/funzip.1 $(MANDIR)/funzip.$(manext)
-	$(INSTALL) man/unzip.1 $(MANDIR)/unzip.$(manext)
-	$(INSTALL) man/unzipsfx.1 $(MANDIR)/unzipsfx.$(manext)
-	$(INSTALL) man/zipgrep.1 $(MANDIR)/zipgrep.$(manext)
-	$(INSTALL) man/zipinfo.1 $(MANDIR)/zipinfo.$(manext)
-	$(CHMOD) $(BINPERMS) $(INSTALLEDBIN)
-	$(CHMOD) $(MANPERMS) $(INSTALLEDMAN)
+	-$(INSTALL_D) $(DESTDIR)$(BINDIR)
+	$(INSTALL_PROGRAM) $(UNZIPS) $(DESTDIR)$(BINDIR)
+	$(INSTALL) unix/zipgrep $(DESTDIR)$(BINDIR)
+	$(RM) $(DESTDIR)$(BINDIR)/zipinfo$E
+	$(LN) $(DESTDIR)$(BINDIR)/unzip$E $(DESTDIR)$(BINDIR)/zipinfo$E
+	-$(INSTALL_D) $(DESTDIR)$(MANDIR)
+	$(INSTALL) man/funzip.1 $(DESTDIR)$(MANDIR)/funzip.$(manext)
+	$(INSTALL) man/unzip.1 $(DESTDIR)$(MANDIR)/unzip.$(manext)
+	$(INSTALL) man/unzipsfx.1 $(DESTDIR)$(MANDIR)/unzipsfx.$(manext)
+	$(INSTALL) man/zipgrep.1 $(DESTDIR)$(MANDIR)/zipgrep.$(manext)
+	$(INSTALL) man/zipinfo.1 $(DESTDIR)$(MANDIR)/zipinfo.$(manext)
+	$(CHMOD) $(BINPERMS) $(DESTDIR)$(INSTALLEDBIN)
+	$(CHMOD) $(MANPERMS) $(DESTDIR)$(INSTALLEDMAN)
 
 uninstall:
 	$(RM) $(INSTALLEDBIN) $(INSTALLEDMAN)
