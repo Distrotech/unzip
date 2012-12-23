@@ -124,11 +124,11 @@ manext = 1
 prefix = /usr
 BINDIR = $(prefix)/bin#			where to install executables
 MANDIR = $(prefix)/share/man/man$(manext)#	where to install man pages
-INSTALLEDBIN = $(BINDIR)/funzip$E $(BINDIR)/unzip$E $(BINDIR)/unzipsfx$E \
-	$(BINDIR)/zipgrep$E $(BINDIR)/zipinfo$E
-INSTALLEDMAN = $(MANDIR)/funzip.$(manext) $(MANDIR)/unzip.$(manext) \
-	$(MANDIR)/unzipsfx.$(manext) $(MANDIR)/zipgrep.$(manext) \
-	$(MANDIR)/zipinfo.$(manext)
+INSTALLEDBIN = $(DESTDIR)$(BINDIR)/funzip$E $(DESTDIR)$(BINDIR)/unzip$E $(DESTDIR)$(BINDIR)/unzipsfx$E \
+	$(DESTDIR)$(BINDIR)/zipgrep$E $(DESTDIR)$(BINDIR)/zipinfo$E
+INSTALLEDMAN = $(DESTDIR)$(MANDIR)/funzip.$(manext) $(DESTDIR)$(MANDIR)/unzip.$(manext) \
+	$(DESTDIR)$(MANDIR)/unzipsfx.$(manext) $(DESTDIR)$(MANDIR)/zipgrep.$(manext) \
+	$(DESTDIR)$(MANDIR)/zipinfo.$(manext)
 
 # Solaris 2.x stuff:
 PKGDIR = IZunzip
@@ -459,8 +459,8 @@ install:	$(MANS)
 	$(INSTALL) man/unzipsfx.1 $(DESTDIR)$(MANDIR)/unzipsfx.$(manext)
 	$(INSTALL) man/zipgrep.1 $(DESTDIR)$(MANDIR)/zipgrep.$(manext)
 	$(INSTALL) man/zipinfo.1 $(DESTDIR)$(MANDIR)/zipinfo.$(manext)
-	$(CHMOD) $(BINPERMS) $(DESTDIR)$(INSTALLEDBIN)
-	$(CHMOD) $(MANPERMS) $(DESTDIR)$(INSTALLEDMAN)
+	$(CHMOD) $(BINPERMS) $(INSTALLEDBIN)
+	$(CHMOD) $(MANPERMS) $(INSTALLEDMAN)
 
 uninstall:
 	$(RM) $(INSTALLEDBIN) $(INSTALLEDMAN)
